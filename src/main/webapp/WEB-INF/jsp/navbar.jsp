@@ -25,8 +25,8 @@
                 <li><a class="dropdown-item" href="${pageContext.request.contextPath}/pizzeria">Home</a></li>
                 <li><a class="dropdown-item" href="${pageContext.request.contextPath}/pizzeria/pizze/search">Ricerca Pizza</a></li>
                 <li><a class="dropdown-item" href="${pageContext.request.contextPath}/pizzeria/pizze/insert">Inserisci Pizza</a></li>
-                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/pizzeria/ordini/search">Ricerca Ordine</a></li>
-                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/pizzeria/ordini/insert">Inserisci Ordine</a></li>
+                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/pizzeria/ordine/search">Ricerca Ordine</a></li>
+                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/pizzeria/ordine/insert">Inserisci Ordine</a></li>
                 <li><a class="dropdown-item" href="${pageContext.request.contextPath}/pizzeria/clienti/search">Ricerca Cliente</a></li>
                 <li><a class="dropdown-item" href="${pageContext.request.contextPath}/pizzeria/clienti/insert">Inserisci Cliente</a></li>
             </ul> 
@@ -34,7 +34,7 @@
         </ul>
       </div>
       <div class="col-md-3 text-end">
-        <p class="navbar-text">Utente: ${userInfo.username }(${userInfo.nome } ${userInfo.cognome })
+        <p class="navbar-text">Utente: (Pietro Romano)
     	 <a href="${pageContext.request.contextPath}/LogoutServlet">Logout</a></p>
       </div>
     </div>

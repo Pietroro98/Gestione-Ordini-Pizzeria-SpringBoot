@@ -1,15 +1,22 @@
 package it.prova.gestionalepizzeria.web.controller;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import it.prova.gestionalepizzeria.dto.ClienteDTO;
+import it.prova.gestionalepizzeria.model.Cliente;
 import it.prova.gestionalepizzeria.service.ClienteService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/pizzeria/clienti")
@@ -96,5 +103,25 @@ public class ClienteController {
         clienteService.disattiva(id);
         redirectAttributes.addFlashAttribute("successMessage", "Cliente disattivato correttamente!");
         return "redirect:/pizzeria/clienti";
+    }
+
+    @GetMapping(value = "/searchAjax", produces = { MediaType.APPLICATION_JSON_VALUE })
+    public @ResponseBody String searchCliente(@RequestParam String term) {
+
+        List<Cliente> listaClientiByTerm = clienteService.searchAttiviByTerm(term);
+        return buildJsonResponse(listaClientiByTerm);
+    }
+
+    private String buildJsonResponse(List<Cliente> listaClienti) {
+        JsonArray ja = new JsonArray();
+
+        for (Cliente clienteItem : listaClienti) {
+            JsonObject jo = new JsonObject();
+            jo.addProperty("value", clienteItem.getId());
+            jo.addProperty("label", clienteItem.getNome() + " " + clienteItem.getCognome());
+            ja.add(jo);
+        }
+
+        return new Gson().toJson(ja);
     }
 }

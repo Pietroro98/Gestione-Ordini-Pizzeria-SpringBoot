@@ -89,4 +89,10 @@ public class ClienteServiceImpl implements ClienteService {
         existing.setAttivo(Boolean.FALSE);
         clienteRepository.save(existing);
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Cliente> searchAttiviByTerm(String term) {
+        return clienteRepository.searchAttiviByTerm(term);
+    }
 }

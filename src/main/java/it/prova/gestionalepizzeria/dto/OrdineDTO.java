@@ -1,10 +1,12 @@
 package it.prova.gestionalepizzeria.dto;
 import it.prova.gestionalepizzeria.model.Ordine;
 import it.prova.gestionalepizzeria.model.Pizza;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,8 +29,8 @@ public class OrdineDTO {
 
     private Float costoTotale;
 
-    @NotNull(message = "Per poter procedere con  l'ordine devi prima selezionare una pizza")
-    private Long pizzaId;
+    @NotEmpty(message = "Per poter procedere con l'ordine devi prima selezionare almeno una pizza")
+    private List<Long> pizzaIds = new ArrayList<>();
 
     public OrdineDTO() {
     }
@@ -46,7 +48,7 @@ public class OrdineDTO {
         if (includeDetails && model.getPizze() != null) {
             List<PizzaDTO> pizzaList = model.getPizze().stream().map(PizzaDTO::BuildFromModel).collect(Collectors.toList());
             result.setPizze(pizzaList);
-            result.setPizzaId(pizzaList.isEmpty() ? null : pizzaList.get(0).getId());
+            result.setPizzaIds(pizzaList.stream().map(PizzaDTO::getId).collect(Collectors.toList()));
         }
         return result;
     }
@@ -65,8 +67,8 @@ public class OrdineDTO {
         if (cliente != null && cliente.getId() != null) {
             ordine.setCliente(cliente.buildModel());
         }
-        if (pizzaId != null) {
-            ordine.setPizze(List.of(new Pizza(pizzaId)).stream().collect(Collectors.toSet()));
+        if (pizzaIds != null && !pizzaIds.isEmpty()) {
+            ordine.setPizze(pizzaIds.stream().map(Pizza::new).collect(Collectors.toCollection(HashSet::new)));
         }
         return ordine;
     }
@@ -127,11 +129,11 @@ public class OrdineDTO {
         this.costoTotale = costoTotale;
     }
 
-    public Long getPizzaId() {
-        return pizzaId;
+    public List<Long> getPizzaIds() {
+        return pizzaIds;
     }
 
-    public void setPizzaId(Long pizzaId) {
-        this.pizzaId = pizzaId;
+    public void setPizzaIds(List<Long> pizzaIds) {
+        this.pizzaIds = pizzaIds;
     }
 }

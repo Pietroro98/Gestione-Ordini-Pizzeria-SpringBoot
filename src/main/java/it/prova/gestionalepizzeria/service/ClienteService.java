@@ -16,4 +16,7 @@ public interface ClienteService {
     void attiva(Long id);
 
     void disattiva(Long id);
+
+    List<Cliente> searchAttiviByTerm(String term);
+
 }
