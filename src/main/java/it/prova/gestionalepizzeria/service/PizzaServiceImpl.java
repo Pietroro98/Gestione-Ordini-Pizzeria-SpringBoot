@@ -56,22 +56,31 @@ public class PizzaServiceImpl implements PizzaService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Pizza caricaSingolo(Long id) {
-        return null;
+        return pizzaRepository.findById(id).orElse(null);
     }
 
     @Override
+    @Transactional
     public void inserisciNuovo(Pizza pizza) {
-
+        pizzaRepository.save(pizza);
     }
 
     @Override
+    @Transactional
     public void aggiorna(Pizza pizza) {
-
+        pizzaRepository.save(pizza);
     }
 
     @Override
+    @Transactional
     public void disattiva(Long id) {
-
+        Pizza existing = caricaSingolo(id);
+        if (existing == null) {
+            return;
+        }
+        existing.setAttivo(Boolean.FALSE);
+        pizzaRepository.save(existing);
     }
 }

@@ -61,10 +61,10 @@
 					<h1 class="display-6">Gestione Pizzeria 🍕</h1>
 					<p class="lead">Gestionale pizzeria moderno con soft delete su clienti, pizze attive e ordini con totale calcolato lato service.</p>
 					<div class="d-flex gap-2">
-						<a class="btn btn-outline-danger" href="${pageContext.request.contextPath}/pizzeria/clienti/search">Gestione Clienti</a>
-						<a class="btn btn-outline-danger" href="${pageContext.request.contextPath}/pizzeria/pizze/search">Gestione Pizze</a>
-						<a class="btn btn-outline-danger" href="${pageContext.request.contextPath}/pizzeria/ordini/search">Gestione Ordini</a>
-						<a class="btn btn-outline-danger" href="${pageContext.request.contextPath}/pizzeria/statistiche/search">Statistiche varie</a>
+						<a class="btn btn-outline-danger" href="${pageContext.request.contextPath}/pizzeria/clienti/list">Gestione Clienti</a>
+						<a class="btn btn-outline-danger" href="${pageContext.request.contextPath}/pizzeria/pizze/list">Gestione Pizze</a>
+						<a class="btn btn-outline-danger" href="${pageContext.request.contextPath}/pizzeria/ordini/list">Gestione Ordini</a>
+						<a class="btn btn-outline-danger" href="${pageContext.request.contextPath}/pizzeria/statistiche/show">Statistiche varie</a>
 					</div>
 				</div>
 
