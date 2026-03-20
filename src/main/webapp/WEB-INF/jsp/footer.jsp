@@ -1,3 +1,4 @@
+<%@ page pageEncoding="UTF-8" %>
 <footer class="footer mt-auto py-3 bg-light">
 	<div class="container">
    		 <ul class="nav justify-content-center border-bottom pb-3 mb-3">
@@ -10,5 +11,4 @@
 	    <p class="text-center text-muted">&copy; 2026, Pizzeria Sicilia</p>
 	</div>   
 </footer>
-
 

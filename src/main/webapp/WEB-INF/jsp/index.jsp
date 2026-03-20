@@ -1,3 +1,4 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!doctype html>
 <html lang="it" class="h-100" >
 	 <head>
@@ -6,8 +7,23 @@
 	 	<jsp:include page="./header.jsp" />
 		<!-- Custom styles per le features di bootstrap 'Columns with icons' -->
 	   <link href="${pageContext.request.contextPath}/assets/css/features.css" rel="stylesheet">
+	   <style>
+	   	.home-carousel {
+
+	   		margin: 0 auto 2rem;
+	   		border: 6px solid #ffffff;
+	   		border-radius: 18px;
+	   		overflow: hidden;
+	   		box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+	   	}
+
+	   	.home-carousel .carousel-item img {
+	   		height: 400px;
+	   		object-fit: cover;
+	   	}
+	   </style>
 	   
-	   <title>Pizzeria Sicilia</title>
+	   <title>🍕Pizzeria Sicilia 🍕</title>
 	 </head>
 	   <body class="d-flex flex-column h-100">
 	   		
@@ -42,16 +58,34 @@
 			<!-- Begin page content -->
 			<main class="container">
 				<div class="p-5 mb-4 bg-light rounded-3">
-					<h1 class="display-6">Gestione Pizzeria</h1>
-					<p class="lead">Modulo separato con DTO, soft delete su clienti, pizze attive e ordini con totale calcolato lato service.</p>
+					<h1 class="display-6">Gestione Pizzeria 🍕</h1>
+					<p class="lead">Gestionale pizzeria moderno con soft delete su clienti, pizze attive e ordini con totale calcolato lato service.</p>
 					<div class="d-flex gap-2">
-						<a class="btn btn-primary" href="${pageContext.request.contextPath}/pizzeria/clienti/search">Gestione Clienti</a>
-						<a class="btn btn-primary" href="${pageContext.request.contextPath}/pizzeria/pizze/search">Gestione Pizze</a>
-						<a class="btn btn-primary" href="${pageContext.request.contextPath}/pizzeria/ordini/search">Gestione Ordini</a>
+						<a class="btn btn-outline-danger" href="${pageContext.request.contextPath}/pizzeria/clienti/search">Gestione Clienti</a>
+						<a class="btn btn-outline-danger" href="${pageContext.request.contextPath}/pizzeria/pizze/search">Gestione Pizze</a>
+						<a class="btn btn-outline-danger" href="${pageContext.request.contextPath}/pizzeria/ordini/search">Gestione Ordini</a>
+						<a class="btn btn-outline-danger" href="${pageContext.request.contextPath}/pizzeria/statistiche/search">Statistiche varie</a>
+					</div>
+				</div>
+
+				<div id="carouselExampleSlidesOnly" class="carousel slide home-carousel" data-bs-ride="carousel" data-bs-interval="4000">
+					<div class="carousel-inner">
+						<div class="carousel-item active">
+							<img src="https://www.cibotoday.it/~media/horizontal-mid/50662807504151/la-pizza-in-teglia-di-gabriele-bonci-2.jpg" class="d-block w-100" alt="...">
+						</div>
+						<div class="carousel-item">
+							<img src="https://associazionepizzerieitaliane.it/wp-content/uploads/2021/03/foto5.jpg" class="d-block w-100" alt="...">
+						</div>
+						<div class="carousel-item">
+							<img src="https://scuolaartebianca.it/wp-content/uploads/2019/07/corso-pizza-in-teglia-alla-romana-1024x683.jpg" class="d-block w-100" alt="...">
+						</div>
+						<div class="carousel-item">
+							<img src="https://foodtourrome.com/wp-content/uploads/2021/02/PIZZARIUM-ROME-BEST-PIZZA-AL-TAGLIO-e1614078716874-1.jpg" class="d-block w-100" alt="...">
+						</div>
 					</div>
 				</div>
 			</main>
-			
+
 			<!-- Footer -->
 			<jsp:include page="./footer.jsp" />
 	  </body>
