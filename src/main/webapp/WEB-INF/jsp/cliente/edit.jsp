@@ -13,29 +13,29 @@
 		<div class="col-12 col-md-10 col-lg-8 col-xl-6">
 			<div class="card shadow-lg p-3 mb-5 bg-white rounded border-0">
 				<div class="card-header bg-danger text-white">
-					<h4 class="mb-0">Modifica pizza</h4>
+					<h4 class="mb-0">Modifica Cliente</h4>
 				</div>
 				<div class="card-body p-4">
-					<spring:hasBindErrors name="edit_pizza_attr">
+					<spring:hasBindErrors name="edit_cliente_attr">
 						<div class="alert alert-danger">Sono presenti errori di validazione</div>
 					</spring:hasBindErrors>
-					<form:form method="post" modelAttribute="edit_pizza_attr" action="../update" class="row g-3">
+					<form:form method="post" modelAttribute="edit_cliente_attr" action="../update" class="row g-3">
 						<form:hidden path="id" />
 						<form:hidden path="attivo" />
 						<div class="col-12">
-							<label class="form-label" for="descrizione">Descrizione</label>
-							<form:input path="descrizione" cssClass="form-control" id="descrizione" />
-							<form:errors path="descrizione" cssClass="text-danger" />
+							<label class="form-label" for="nome">Nome</label>
+							<form:input path="nome" cssClass="form-control" id="nome" />
+							<form:errors path="nome" cssClass="text-danger" />
 						</div>
 						<div class="col-12">
-							<label class="form-label" for="ingredienti">Ingredienti</label>
-							<form:input path="ingredienti" cssClass="form-control" id="ingredienti" />
-							<form:errors path="ingredienti" cssClass="text-danger" />
+							<label class="form-label" for="cognome">Cognome</label>
+							<form:input path="cognome" cssClass="form-control" id="cognome" />
+							<form:errors path="cognome" cssClass="text-danger" />
 						</div>
 						<div class="col-12">
-							<label class="form-label" for="prezzoBase">Prezzo base</label>
-							<form:input path="prezzoBase" cssClass="form-control" id="prezzoBase" type="number" step="0.01" />
-							<form:errors path="prezzoBase" cssClass="text-danger" />
+							<label class="form-label" for="indirizzo">Indirizzo</label>
+							<form:input path="indirizzo" cssClass="form-control" id="indirizzo" />
+							<form:errors path="indirizzo" cssClass="text-danger" />
 						</div>
 						<div class="col-12 text-end">
 							<button class="btn btn-outline-danger" type="submit">Aggiorna</button>

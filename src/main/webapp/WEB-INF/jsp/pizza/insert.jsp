@@ -14,7 +14,7 @@
 <main class="container py-5">
 	<div class="row justify-content-center">
 		<div class="col-12 col-md-10 col-lg-8 col-xl-6">
-			<div class="card shadow-sm border-0">
+			<div class="card shadow-lg p-3 mb-5 bg-white rounded border-0">
 				<div class="card-header bg-danger text-white">
 					<h4 class="mb-0">Inserisci nuova pizza</h4>
 				</div>

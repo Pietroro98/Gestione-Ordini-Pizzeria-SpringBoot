@@ -1,6 +1,7 @@
 package it.prova.gestionalepizzeria.service;
 
 import it.prova.gestionalepizzeria.model.Cliente;
+import it.prova.gestionalepizzeria.model.Pizza;
 import it.prova.gestionalepizzeria.repository.cliente.ClienteRepository;
 import jakarta.persistence.criteria.Predicate;
 import org.apache.commons.lang3.StringUtils;
@@ -69,12 +70,23 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Override
     @Transactional
-    public void disattiva(Long id) {
-        Cliente cliente = caricaSingoloElemento(id);
-        if (cliente == null) {
+    public void attiva(Long id) {
+        Cliente existing = caricaSingoloElemento(id);
+        if (existing == null) {
             return;
         }
-        cliente.setAttivo(Boolean.FALSE);
-        clienteRepository.save(cliente);
+        existing.setAttivo(Boolean.TRUE);
+        clienteRepository.save(existing);
+    }
+
+    @Override
+    @Transactional
+    public void disattiva(Long id) {
+        Cliente existing = caricaSingoloElemento(id);
+        if (existing == null) {
+            return;
+        }
+        existing.setAttivo(Boolean.FALSE);
+        clienteRepository.save(existing);
     }
 }

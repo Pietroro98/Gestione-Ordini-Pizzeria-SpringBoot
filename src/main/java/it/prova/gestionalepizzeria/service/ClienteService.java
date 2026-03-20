@@ -13,5 +13,7 @@ public interface ClienteService {
 
     void aggiorna(Cliente cliente);
 
+    void attiva(Long id);
+
     void disattiva(Long id);
 }
