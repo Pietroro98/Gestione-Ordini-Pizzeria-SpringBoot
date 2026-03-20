@@ -49,7 +49,7 @@ public class PizzaDTO {
     }
 
     public Pizza buildModel() {
-        return new Pizza(id, descrizione, ingredienti, prezzoBase, attivo == null ? Boolean.TRUE : attivo);
+        return new Pizza(id, descrizione, ingredienti, prezzoBase, attivo);
     }
 
     public Long getId() {

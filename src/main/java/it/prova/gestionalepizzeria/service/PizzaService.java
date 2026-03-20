@@ -18,5 +18,7 @@ public interface PizzaService {
 
     void aggiorna(Pizza pizza);
 
+    void attiva(Long id);
+
     void disattiva(Long id);
 }

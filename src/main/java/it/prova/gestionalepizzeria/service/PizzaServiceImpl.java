@@ -64,13 +64,33 @@ public class PizzaServiceImpl implements PizzaService {
     @Override
     @Transactional
     public void inserisciNuovo(Pizza pizza) {
+        if (pizza.getAttivo() == null) {
+            pizza.setAttivo(Boolean.TRUE);
+        }
         pizzaRepository.save(pizza);
     }
 
     @Override
     @Transactional
     public void aggiorna(Pizza pizza) {
+        if (pizza.getAttivo() == null && pizza.getId() != null) {
+            Pizza existing = caricaSingolo(pizza.getId());
+            if (existing != null) {
+                pizza.setAttivo(existing.getAttivo());
+            }
+        }
         pizzaRepository.save(pizza);
+    }
+
+    @Override
+    @Transactional
+    public void attiva(Long id) {
+        Pizza existing = caricaSingolo(id);
+        if (existing == null) {
+            return;
+        }
+        existing.setAttivo(Boolean.TRUE);
+        pizzaRepository.save(existing);
     }
 
     @Override
