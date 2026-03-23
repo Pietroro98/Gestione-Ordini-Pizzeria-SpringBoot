@@ -12,9 +12,9 @@
 	</head>
 		<body>
 			<jsp:include page="../navbar.jsp" />
-			<main class="container py-5">
+			<main class="container-fluid px-4 px-xl-5 py-5">
 				<div class="row justify-content-center">
-					<div class="col-12 col-md-10 col-lg-8 col-xl-6">
+					<div class="col-12 col-lg-10 col-xl-9 col-xxl-8">
 						<div class="card shadow-lg p-3 mb-5 bg-white rounded border-0">
 							<div class="card-header bg-danger text-white">
 								<h4 class="mb-0">Inserisci nuovo ordine</h4>
@@ -41,29 +41,44 @@
 											<form:option value="true">true</form:option>
 										</form:select>
 									</div>--%>
-									<div class="col-md-6">
+									<div class="col-md-4">
 										<label class="form-label" for="clienteSearchInput">Cliente</label>
 										<input class="form-control" id="clienteSearchInput" value="${insert_ordine_attr.cliente.nome} ${insert_ordine_attr.cliente.cognome}">
 										<input type="hidden" name="cliente.id" id="clienteId" value="${insert_ordine_attr.cliente.id}">
 										<form:errors path="cliente" cssClass="text-danger" />
 									</div>
 									<div class="col-12">
-										<label class="form-label">Pizze disponibili</label>
-										<div class="list-group list-group-flush border rounded">
-											<c:forEach items="${pizza_list_attribute}" var="pizza">
-												<div class="list-group-item">
-													<div class="form-check">
-														<input class="form-check-input" type="checkbox" name="pizzaIds" value="${pizza.id}" id="pizza_${pizza.id}"
-															${insert_ordine_attr.pizzaIds.contains(pizza.id) ? 'checked' : ''}>
-												<label class="form-check-label w-100" for="pizza_${pizza.id}">
-													<strong>${pizza.descrizione}</strong>
-													<span class="d-block text-muted small">${pizza.ingredienti}</span>
-													<span class="d-block">Prezzo: ${pizza.prezzoBase + (pizza.prezzoBase * 20 / 100)}€</span>
-												</label>
+
+										<button class="btn btn-outline-danger w-100 text-start d-flex justify-content-between align-items-center mt-3" type="button" data-bs-toggle="collapse" data-bs-target="#pizzeDropdown" aria-expanded="false" aria-controls="pizzeDropdown">
+											<span>Seleziona pizze</span>
+											<i class="bi bi-chevron-down"></i>
+										</button>
+										<div class="collapse mt-2" id="pizzeDropdown">
+											<div class="card border-0 border-top rounded-0">
+												<div class="card-body p-3">
+													<input class="form-control mb-3" id="pizzaSearchInput" type="text" placeholder="Cerca pizze per nome o ingredienti...">
+													<div class="list-group list-group-flush" id="pizzeDisponibiliContainer" style="max-height: 400px; overflow-y: auto;">
+														<c:forEach items="${pizza_list_attribute}" var="pizza">
+															<div class="list-group-item pizza-item" data-pizza-id="${pizza.id}" data-pizza-name="${pizza.descrizione}" data-pizza-ingredients="${pizza.ingredienti}">
+																<div class="form-check">
+																	<input class="form-check-input pizza-checkbox" type="checkbox" name="pizzaIds" value="${pizza.id}" id="pizza_${pizza.id}"
+																		${insert_ordine_attr.pizzaIds.contains(pizza.id) ? 'checked' : ''}>
+																	<label class="form-check-label w-100" for="pizza_${pizza.id}">
+																		<strong>${pizza.descrizione}</strong>
+																		<span class="d-block text-muted small">${pizza.ingredienti}</span>
+																		<span class="d-block">Prezzo: <span class="pizza-price">${pizza.prezzoBase + (pizza.prezzoBase * 20 / 100)}</span>€</span>
+																	</label>
+																</div>
+															</div>
+														</c:forEach>
+													</div>
+												</div>
 											</div>
 										</div>
-											</c:forEach>
-										</div>
+										<label class="form-label mt-3">Pizze selezionate</label>
+										<ul class="list-group mb-3" id="pizzeSelezionateList">
+											<li class="list-group-item text-muted" id="nessunaPizzaMsg">Nessuna pizza selezionata</li>
+										</ul>
 										<form:errors path="pizzaIds" cssClass="text-danger" />
 									</div>
 									<div class="col-12">
@@ -130,6 +145,73 @@
 							}
 						}
 					});
+
+					// Ricerca e filtro pizze
+					const pizzaSearchInput = document.getElementById("pizzaSearchInput");
+					const pizzeDisponibiliContainer = document.getElementById("pizzeDisponibiliContainer");
+					const pizzeItems = Array.from(document.querySelectorAll(".pizza-item"));
+					const pizzaCheckboxes = document.querySelectorAll(".pizza-checkbox");
+					const pizzeSelezionateList = document.getElementById("pizzeSelezionateList");
+					const nessunaPizzaMsg = document.getElementById("nessunaPizzaMsg");
+
+					function filtraPizze() {
+						const searchTerm = pizzaSearchInput.value.toLowerCase().trim();
+
+						pizzeItems.forEach(function(item) {
+							const name = item.dataset.pizzaName.toLowerCase();
+							const ingredients = item.dataset.pizzaIngredients.toLowerCase();
+
+							if (searchTerm === "" || name.includes(searchTerm) || ingredients.includes(searchTerm)) {
+								item.style.display = "";
+							} else {
+								item.style.display = "none";
+							}
+						});
+					}
+
+					function aggiornaListaPizzeSelezionate() {
+						const pizzeSelezionate = Array.from(pizzaCheckboxes)
+							.filter(checkbox => checkbox.checked)
+							.map(checkbox => {
+								const label = document.querySelector("label[for='" + checkbox.id + "']");
+								const descrizione = label.querySelector("strong").textContent.trim();
+								const prezzoText = Array.from(label.querySelectorAll("span.pizza-price"))
+									.map(span => span.textContent.trim());
+								const prezzo = prezzoText[0] || "0";
+
+								return {
+									id: checkbox.value,
+									descrizione: descrizione,
+									prezzo: prezzo
+								};
+							});
+
+						pizzeSelezionateList.innerHTML = "";
+
+						if (pizzeSelezionate.length === 0) {
+							nessunaPizzaMsg.style.display = "";
+							pizzeSelezionateList.appendChild(nessunaPizzaMsg);
+						} else {
+							nessunaPizzaMsg.style.display = "none";
+							pizzeSelezionate.forEach(function(pizza) {
+								const li = document.createElement("li");
+								li.className = "list-group-item d-flex justify-content-between align-items-center";
+								li.innerHTML = "<span>" + pizza.descrizione + "</span><span>" + pizza.prezzo + "€</span>";
+								pizzeSelezionateList.appendChild(li);
+							});
+						}
+					}
+
+					// Event listener per ricerca
+					pizzaSearchInput.addEventListener("input", filtraPizze);
+
+					// Event listener per checkbox
+					pizzaCheckboxes.forEach(function(checkbox) {
+						checkbox.addEventListener("change", aggiornaListaPizzeSelezionate);
+					});
+
+					// Inizializza la lista al caricamento
+					aggiornaListaPizzeSelezionate();
 				</script>
 			</main>
 		</body>
