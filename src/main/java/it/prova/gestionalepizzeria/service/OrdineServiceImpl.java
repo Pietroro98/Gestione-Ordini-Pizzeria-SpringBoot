@@ -1,5 +1,6 @@
 package it.prova.gestionalepizzeria.service;
 
+import it.prova.gestionalepizzeria.model.Cliente;
 import it.prova.gestionalepizzeria.model.Ordine;
 import it.prova.gestionalepizzeria.model.Pizza;
 import it.prova.gestionalepizzeria.repository.ordine.OrdineRepository;
@@ -10,6 +11,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -92,5 +94,35 @@ public class OrdineServiceImpl implements OrdineService {
 
         float totaleFinale = totalBase + (totalBase * 20/100);
         return totaleFinale;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Float sommaRicaviTraDate(LocalDateTime dataInizio, LocalDateTime dataFine) {
+        return ordineRepository.sumRicaviByDataOrdineBetween(dataInizio, dataFine);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Float sommaCostiTraDate(LocalDateTime dataInizio, LocalDateTime dataFine) {
+        return ordineRepository.sumCostiByDataOrdineBetween(dataInizio, dataFine);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Integer contaOrdiniTraDate(LocalDateTime dataInizio, LocalDateTime dataFine) {
+        return ordineRepository.countOrdiniByDataOrdineBetween(dataInizio, dataFine);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Integer contaPizzeOrdinateTraDate(LocalDateTime dataInizio, LocalDateTime dataFine) {
+        return ordineRepository.countPizzeOrdinateByDataOrdineBetween(dataInizio, dataFine);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Cliente> cercaClientiVirtuosi(LocalDateTime dataInizio, LocalDateTime dataFine) {
+        return ordineRepository.findClientiVirtuosiByDataOrdineBetween(dataInizio, dataFine);
     }
 }
