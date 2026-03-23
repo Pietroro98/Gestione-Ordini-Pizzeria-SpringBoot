@@ -38,6 +38,7 @@
 							<form:errors path="indirizzo" cssClass="text-danger" />
 						</div>
 						<div class="col-12 text-end">
+							<a class="btn btn-outline-danger" href="${pageContext.request.contextPath}/pizzeria/clienti">Torna alla lista</a>
 							<button class="btn btn-outline-danger" type="submit">Aggiorna</button>
 						</div>
 					</form:form>

@@ -81,8 +81,8 @@
 										</ul>
 										<form:errors path="pizzaIds" cssClass="text-danger" />
 									</div>
-									<div class="col-12">
-										<button class="btn btn-primary" type="button" id="procediBtn">Procedi</button>
+									<div class="col-12 text-end">
+										<button class="btn btn-outline-danger" type="button" id="procediBtn">Procedi</button>
 									</div>
 								</form:form>
 							</div>
