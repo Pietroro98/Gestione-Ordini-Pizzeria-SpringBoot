@@ -8,7 +8,7 @@
 <body>
 <jsp:include page="../navbar.jsp" />
 <main class="container">
-	<div class="d-flex justify-content-center align-items-center py-3">
+	<div class="d-flex justify-content-center align-items-center py-3 position-relative">
 		<h2>LISTA CLIENTI</h2>
 		<div class="position-absolute end-0">
 			<a class="btn btn-outline-danger" href="${pageContext.request.contextPath}/pizzeria/clienti/search">Ricerca</a>
