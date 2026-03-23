@@ -55,13 +55,13 @@
 													<div class="form-check">
 														<input class="form-check-input" type="checkbox" name="pizzaIds" value="${pizza.id}" id="pizza_${pizza.id}"
 															${insert_ordine_attr.pizzaIds.contains(pizza.id) ? 'checked' : ''}>
-														<label class="form-check-label w-100" for="pizza_${pizza.id}">
-															<strong>${pizza.descrizione}</strong>
-															<span class="d-block text-muted small">${pizza.ingredienti}</span>
-															<span class="d-block">Prezzo base: ${pizza.prezzoBase}€</span>
-														</label>
-													</div>
-												</div>
+												<label class="form-check-label w-100" for="pizza_${pizza.id}">
+													<strong>${pizza.descrizione}</strong>
+													<span class="d-block text-muted small">${pizza.ingredienti}</span>
+													<span class="d-block">Prezzo: ${pizza.prezzoBase + (pizza.prezzoBase * 20 / 100)}€</span>
+												</label>
+											</div>
+										</div>
 											</c:forEach>
 										</div>
 										<form:errors path="pizzaIds" cssClass="text-danger" />

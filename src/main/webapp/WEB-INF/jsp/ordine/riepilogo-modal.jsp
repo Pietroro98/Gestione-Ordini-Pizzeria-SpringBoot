@@ -15,8 +15,8 @@
 					<strong>Pizze selezionate</strong>
 					<ul class="list-group mt-2" id="riepilogoPizze"></ul>
 				</div>
-				<div class="alert alert-light border mb-0">
-					<strong>Totale ordine:</strong> <span id="riepilogoTotale">0.00 €</span>
+				<div class="alert alert-info border mb-0">
+					<strong>Costo tot. ordine:</strong> <span id="riepilogoTotale">0.00 €</span>
 				</div>
 			</div>
 			<div class="modal-footer">

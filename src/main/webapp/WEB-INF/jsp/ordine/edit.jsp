@@ -58,7 +58,7 @@
 											<label class="form-check-label w-100" for="pizza_${pizza.id}">
 												<strong>${pizza.descrizione}</strong>
 												<span class="d-block text-muted small">${pizza.ingredienti}</span>
-												<span class="d-block">Prezzo base: ${pizza.prezzoBase}€</span>
+												<span class="d-block">Prezzo: ${pizza.prezzoBase + (pizza.prezzoBase * 20 / 100)}€</span>
 											</label>
 										</div>
 									</div>

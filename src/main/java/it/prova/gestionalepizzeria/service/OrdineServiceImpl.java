@@ -82,13 +82,15 @@ public class OrdineServiceImpl implements OrdineService {
         if (ordine == null || ordine.getPizze() == null) {
             return 0F;
         }
-        float totale = 0F;
+        float totalBase = 0F;
         for (Pizza pizza : ordine.getPizze())
         {
             if (pizza.getPrezzoBase() != null) {
-                totale += pizza.getPrezzoBase();
+                totalBase += pizza.getPrezzoBase();
             }
         }
-        return totale;
+
+        float totaleFinale = totalBase + (totalBase * 20/100);
+        return totaleFinale;
     }
 }
