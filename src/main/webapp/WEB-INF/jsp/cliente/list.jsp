@@ -7,7 +7,7 @@
 </head>
 <body>
 <jsp:include page="../navbar.jsp" />
-<main class="container-fluid">
+<main class="container">
 	<div class="d-flex justify-content-between align-items-center py-3">
 		<h2>LISTA CLIENTI</h2>
 		<div>
@@ -22,7 +22,7 @@
 	</div>
 
 	<div class="table-responsive">
-		<table class="table table-bordered table-striped table-hover align-middle shadow-sm">
+		<table class="table table-bordered table-striped table-hover align-middle shadow-sm table-light">
 			<thead class="table-responsive table-borderless table-danger">
 			<tr>
 				<th scope="col">Nome</th>
