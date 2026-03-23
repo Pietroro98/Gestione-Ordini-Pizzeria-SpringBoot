@@ -27,6 +27,13 @@
 	      font-size: 3.5rem;
 	    }
 	  }
+
+	  /* Keep actions column compact and prevent wrapping of buttons */
+	  .col-actions {
+	    white-space: nowrap; /* prevent line breaks */
+	    width: 1%;           /* allow column to shrink to its content */
+	  }
+
 	</style>
 
 
