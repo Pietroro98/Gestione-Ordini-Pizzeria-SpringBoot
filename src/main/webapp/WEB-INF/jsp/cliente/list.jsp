@@ -7,7 +7,7 @@
 </head>
 <body>
 <jsp:include page="../navbar.jsp" />
-<main class="container">
+<main class="container-fluid">
 	<div class="d-flex justify-content-between align-items-center py-3">
 		<h2>LISTA CLIENTI</h2>
 		<div>

@@ -14,6 +14,16 @@
    
    
    <style>
+	  /* Background image per tutte le pagine */
+	  body {
+          background-image: url("${pageContext.request.contextPath}/assets/img/background-image-white.png");
+	    background-size: cover;
+	    background-position: center;
+	    background-attachment: fixed;
+	    background-repeat: no-repeat;
+	    min-height: 100vh;
+	  }
+
 	  .bd-placeholder-img {
 	    font-size: 1.125rem;
 	    text-anchor: middle;

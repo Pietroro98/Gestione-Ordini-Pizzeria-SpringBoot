@@ -22,7 +22,7 @@
 	</div>
 
 	<div class="table-responsive">
-		<table class="table table-bordered table-striped table-hover align-middle shadow-sm">
+		<table class="table table-bordered table-striped table-hover align-middle shadow-sm table-light">
 			<thead class="table-responsive table-borderless table-danger">
 			<tr>
 				<th scope="col">Descrizione</th>
