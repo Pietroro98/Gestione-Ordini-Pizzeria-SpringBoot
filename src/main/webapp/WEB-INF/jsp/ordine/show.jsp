@@ -20,6 +20,7 @@
 					<p><strong>Codice:</strong> ${show_ordine_attr.codice}</p>
 					<p><strong>Data ordine:</strong> ${show_ordine_attr.dataOrdine}</p>
 					<p><strong>Cliente:</strong> ${show_ordine_attr.cliente.nome} ${show_ordine_attr.cliente.cognome}</p>
+					<p><strong>Fattorino:</strong> Pocu Tiempu</p>
 					<p><strong>Totale:</strong> ${show_ordine_attr.costoTotale} €</p>
 					<p><strong>Chiuso:</strong> ${show_ordine_attr.closed}</p>
 					<p><strong>Pizze:</strong></p>

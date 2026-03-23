@@ -10,6 +10,7 @@
 					<div><strong>Codice:</strong> <span id="riepilogoCodice">-</span></div>
 					<div><strong>Data ordine:</strong> <span id="riepilogoDataOrdine">-</span></div>
 					<div><strong>Cliente:</strong> <span id="riepilogoCliente">-</span></div>
+					<div><strong>Fattorino:</strong> <span> Pocu Tiempu</span></div>
 				</div>
 				<div class="mb-3">
 					<strong>Pizze selezionate</strong>
