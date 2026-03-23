@@ -4,6 +4,8 @@ import it.prova.gestionalepizzeria.model.Pizza;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -20,9 +22,10 @@ public class OrdineDTO {
     private List<PizzaDTO> pizze = new ArrayList<>();
 
     @NotNull(message = "La data ordine è obbligatoria")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime dataOrdine;
 
-    private Boolean closed = Boolean.FALSE;
+    private Boolean closed;
 
     @NotBlank(message = "Il codice è obbligatorio")
     private String codice;
@@ -61,7 +64,7 @@ public class OrdineDTO {
         Ordine ordine = new Ordine();
         ordine.setId(id);
         ordine.setDataOrdine(dataOrdine);
-        ordine.setClosed(closed == null ? Boolean.FALSE : closed);
+        ordine.setClosed(closed);
         ordine.setCodice(codice);
         ordine.setCostoTotale(costoTotale);
         if (cliente != null && cliente.getId() != null) {

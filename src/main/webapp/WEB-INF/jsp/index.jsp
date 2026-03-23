@@ -63,7 +63,7 @@
 					<div class="d-flex gap-2">
 						<a class="btn btn-outline-danger" href="${pageContext.request.contextPath}/pizzeria/clienti/list">Gestione Clienti</a>
 						<a class="btn btn-outline-danger" href="${pageContext.request.contextPath}/pizzeria/pizze/list">Gestione Pizze</a>
-						<a class="btn btn-outline-danger" href="${pageContext.request.contextPath}/pizzeria/ordini/list">Gestione Ordini</a>
+						<a class="btn btn-outline-danger" href="${pageContext.request.contextPath}/pizzeria/ordine/list">Gestione Ordini</a>
 						<a class="btn btn-outline-danger" href="${pageContext.request.contextPath}/pizzeria/statistiche/show">Statistiche varie</a>
 					</div>
 				</div>

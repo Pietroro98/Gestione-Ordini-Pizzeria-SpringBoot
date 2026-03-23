@@ -35,7 +35,7 @@ public class OrdineServiceImpl implements OrdineService {
                 predicates.add(cb.like(cb.upper(root.get("codice")), "%" + example.getCodice().toUpperCase() + "%"));
             }
             if (example.getDataOrdine() != null) {
-                predicates.add(cb.equal(root.get("dataOrdine"), example.getDataOrdine()));
+                predicates.add(cb.greaterThanOrEqualTo(root.get("dataOrdine"), example.getDataOrdine()));
             }
             if (example.getClosed() != null) {
                 predicates.add(cb.equal(root.get("closed"), example.getClosed()));

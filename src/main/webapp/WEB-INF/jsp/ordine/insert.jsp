@@ -20,10 +20,10 @@
 								<h4 class="mb-0">Inserisci nuovo ordine</h4>
 							</div>
 							<div class="card-body p-4">
-								<spring:hasBindErrors name="insert_pizza_attr">
+								<spring:hasBindErrors name="insert_ordine_attr">
 									<div class="alert alert-danger">Sono presenti errori di validazione</div>
 								</spring:hasBindErrors>
-								<form:form method="post" modelAttribute="insert_ordine_attr" action="save" class="row g-3">
+								<form:form method="post" modelAttribute="insert_ordine_attr" action="save" class="row g-3" id="ordineForm">
 									<div class="col-md-4">
 										<label class="form-label" for="codice">Codice</label>
 										<form:input path="codice" cssClass="form-control" id="codice" />
@@ -34,13 +34,13 @@
 										<form:input path="dataOrdine" cssClass="form-control" id="dataOrdine" type="datetime-local" />
 										<form:errors path="dataOrdine" cssClass="text-danger" />
 									</div>
-									<div class="col-md-4">
+									<%--<div class="col-md-4">
 										<label class="form-label" for="closed">Closed</label>
 										<form:select path="closed" cssClass="form-select" id="closed">
 											<form:option value="false">false</form:option>
 											<form:option value="true">true</form:option>
 										</form:select>
-									</div>
+									</div>--%>
 									<div class="col-md-6">
 										<label class="form-label" for="clienteSearchInput">Cliente</label>
 										<input class="form-control" id="clienteSearchInput" value="${insert_ordine_attr.cliente.nome} ${insert_ordine_attr.cliente.cognome}">
@@ -67,14 +67,32 @@
 										<form:errors path="pizzaIds" cssClass="text-danger" />
 									</div>
 									<div class="col-12">
-										<button class="btn btn-primary" type="submit">Salva ordine</button>
+										<button class="btn btn-primary" type="button" id="procediBtn">Procedi</button>
 									</div>
 								</form:form>
 							</div>
 						</div>
 					</div>
 				</div>
+
+				<%-- MODALE CONFERMA ORDINE CON RIEPILOGO --%>
+				<jsp:include page="riepilogo-modal.jsp" />
+
+				<script src="${pageContext.request.contextPath}/assets/js/ordine-riepilogo.js"></script>
+
 				<script>
+					// Inizializzo il comportamento del riepilogo passando gli id del form corrente.
+					inizializzaRiepilogoOrdine({
+						formId: "ordineForm",
+						procediBtnId: "procediBtn",
+						confermaBtnId: "confermaOrdineBtn",
+						codiceInputId: "codice",
+						dataOrdineInputId: "dataOrdine",
+						clienteInputId: "clienteSearchInput"
+					});
+
+					// Autocomplete cliente: mentre l'utente scrive chiedo al controller
+					// i clienti compatibili e salvo l'id scelto nel campo hidden cliente.id.
 					$("#clienteSearchInput").autocomplete({
 						source: function(request, response) {
 							$.ajax({
