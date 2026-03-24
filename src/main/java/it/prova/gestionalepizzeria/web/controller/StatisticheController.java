@@ -1,5 +1,6 @@
 package it.prova.gestionalepizzeria.web.controller;
 import it.prova.gestionalepizzeria.dto.ClienteDTO;
+import it.prova.gestionalepizzeria.model.ClienteProjectionInterface;
 import it.prova.gestionalepizzeria.service.OrdineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 
 @Controller
 @RequestMapping("/pizzeria/statistiche")
@@ -53,6 +55,9 @@ public class StatisticheController {
         model.addAttribute("numeroOrdiniTotali", ordineService.contaOrdiniTraDate(dataInizio, dataFine));
         model.addAttribute("numeroPizzeTotali", ordineService.contaPizzeOrdinateTraDate(dataInizio, dataFine));
         model.addAttribute("clientiVirtuosi",ClienteDTO.createListFromModelList(ordineService.cercaClientiVirtuosi(dataInizio, dataFine)));
+
+        model.addAttribute("clientiSilver", ordineService.cercaClientiSilver(dataInizio, dataFine));
+        model.addAttribute("clientiGold", ordineService.cercaClientiGold(dataInizio, dataFine));
 
         return "statistiche/show";
     }

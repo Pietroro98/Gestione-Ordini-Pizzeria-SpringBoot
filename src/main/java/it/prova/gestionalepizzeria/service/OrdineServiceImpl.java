@@ -149,4 +149,14 @@ public class OrdineServiceImpl implements OrdineService {
     public List<Cliente> cercaClientiVirtuosi(LocalDateTime dataInizio, LocalDateTime dataFine) {
         return ordineRepository.findClientiVirtuosiByDataOrdineBetween(dataInizio, dataFine);
     }
+
+    @Override
+    public List<Cliente> cercaClientiSilver(LocalDateTime dataInizio, LocalDateTime dataFine) {
+        return ordineRepository.findClientiSilverByDataOrdineBetween(dataInizio, dataFine);
+    }
+
+    @Override
+    public List<Cliente> cercaClientiGold(LocalDateTime dataInizio, LocalDateTime dataFine) {
+        return ordineRepository.findClientiGoldByDataOrdineBetween(dataInizio, dataFine);
+    }
 }

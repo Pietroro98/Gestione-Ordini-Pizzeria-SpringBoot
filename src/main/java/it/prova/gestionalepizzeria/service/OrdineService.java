@@ -32,4 +32,8 @@ public interface OrdineService {
     Integer contaPizzeOrdinateTraDate(LocalDateTime dataInizio, LocalDateTime dataFine);
 
     List<Cliente> cercaClientiVirtuosi(LocalDateTime dataInizio, LocalDateTime dataFine);
+
+    List<Cliente> cercaClientiSilver(LocalDateTime dataInizio, LocalDateTime dataFine);
+
+    List<Cliente> cercaClientiGold(LocalDateTime dataInizio, LocalDateTime dataFine);
 }

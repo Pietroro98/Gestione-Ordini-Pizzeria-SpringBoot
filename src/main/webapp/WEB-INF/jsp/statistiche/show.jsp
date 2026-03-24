@@ -74,6 +74,71 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <h4 class="text-center mt-2">Clienti Silver</h4>
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-hover align-middle">
+                                        <thead class="table-secondary">
+                                        <tr>
+                                            <th>Nome</th>
+                                            <th>Cognome</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <c:choose>
+                                            <c:when test="${not empty clientiSilver}">
+                                                <c:forEach items="${clientiSilver}" var="clienteItem">
+                                                    <tr>
+                                                        <td>${clienteItem.nome}</td>
+                                                        <td>${clienteItem.cognome}</td>
+                                                    </tr>
+                                                </c:forEach>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <tr>
+                                                    <td colspan="2" class="text-center">Nessun cliente SILVER trovato</td>
+                                                </tr>
+                                            </c:otherwise>
+                                        </c:choose>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <h4 class="text-center mt-2">Clienti Gold</h4>
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-hover align-middle">
+                                        <thead class="table-warning">
+                                        <tr>
+                                            <th>Nome</th>
+                                            <th>Cognome</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <c:choose>
+                                            <c:when test="${not empty clientiGold}">
+                                                <c:forEach items="${clientiGold}" var="clienteItem">
+                                                    <tr>
+                                                        <td>${clienteItem.nome}</td>
+                                                        <td>${clienteItem.cognome}</td>
+                                                    </tr>
+                                                </c:forEach>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <tr>
+                                                    <td colspan="2" class="text-center">Nessun cliente GOLD trovato</td>
+                                                </tr>
+                                            </c:otherwise>
+                                        </c:choose>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
 
                         <div class="mt-4">
                             <h5 class="mb-3">Clienti virtuosi</h5>
