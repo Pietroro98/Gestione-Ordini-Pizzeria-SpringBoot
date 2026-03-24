@@ -17,7 +17,22 @@
 					<ul class="list-group mt-2" id="riepilogoPizze"></ul>
 				</div>
 				<div class="alert alert-info border mb-0">
-					<strong>Costo tot. ordine:</strong> <span id="riepilogoTotale">0.00 €</span>
+					<div class="d-flex justify-content-between align-items-center">
+						<strong>Totale</strong>
+						<span id="riepilogoTotaleBase">0.00 €</span>
+					</div>
+					<div class="d-flex justify-content-between align-items-center mt-2 d-none" id="riepilogoScontoRow">
+						<span id="riepilogoScontoLabel">- Sconto</span>
+						<span id="riepilogoSconto">-0.00 €</span>
+					</div>
+
+					<div id="riepilogoTotaleFinaleRow" class="d-none">
+						<hr class="my-2">
+						<div class="d-flex justify-content-between align-items-center fw-bold">
+							<span>Totale finale</span>
+							<span id="riepilogoTotale">0.00 €</span>
+						</div>
+					</div>
 				</div>
 			</div>
 			<div class="modal-footer">

@@ -1,6 +1,7 @@
 package it.prova.gestionalepizzeria.service;
 
 import it.prova.gestionalepizzeria.model.Cliente;
+import it.prova.gestionalepizzeria.model.ClienteProjectionInterface;
 import it.prova.gestionalepizzeria.model.Pizza;
 import it.prova.gestionalepizzeria.repository.cliente.ClienteRepository;
 import jakarta.persistence.criteria.Predicate;
@@ -90,9 +91,14 @@ public class ClienteServiceImpl implements ClienteService {
         clienteRepository.save(existing);
     }
 
-    @Override
+  /*  @Override
     @Transactional(readOnly = true)
     public List<Cliente> searchAttiviByTerm(String term) {
         return clienteRepository.searchAttiviByTerm(term);
+    }*/
+
+    @Override
+    public List<ClienteProjectionInterface> searchAttiviWithPromoByTerm(String term) {
+        return clienteRepository.searchAttiviWithPromoByTerm(term);
     }
 }

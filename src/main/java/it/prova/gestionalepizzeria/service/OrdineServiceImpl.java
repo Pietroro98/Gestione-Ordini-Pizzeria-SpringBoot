@@ -84,16 +84,40 @@ public class OrdineServiceImpl implements OrdineService {
         if (ordine == null || ordine.getPizze() == null) {
             return 0F;
         }
+
         float totalBase = 0F;
-        for (Pizza pizza : ordine.getPizze())
-        {
+        for (Pizza pizza : ordine.getPizze()) {
             if (pizza.getPrezzoBase() != null) {
                 totalBase += pizza.getPrezzoBase();
             }
         }
+        float totaleVendita = totalBase + (totalBase * 20 / 100);
 
-        float totaleFinale = totalBase + (totalBase * 20/100);
-        return totaleFinale;
+        float percentualeSconto = calcolaPercentualeSconto(ordine);
+        float importoSconto = totaleVendita * percentualeSconto / 100;
+        return totaleVendita - importoSconto;
+    }
+
+    private float calcolaPercentualeSconto(Ordine ordine)
+    {
+        Long clienteDaVerificare = ordine.getCliente().getId();
+        if ( clienteDaVerificare == null ) {
+            return 0F;
+        }
+
+        int numeroOrdini = (int) ordine.getCliente().getOrdini().stream()
+                .filter(ordineCliente -> Boolean.TRUE.equals(ordineCliente.getClosed()))
+                .count() + 1;
+
+        if (numeroOrdini == 20) {
+            return 20F;
+        }
+
+        if (numeroOrdini == 10) {
+            return 10F;
+        }
+
+        return 0F;
     }
 
     @Override

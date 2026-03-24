@@ -43,13 +43,16 @@
 									</div>--%>
 									<div class="col-md-4">
 										<label class="form-label" for="clienteSearchInput">Cliente</label>
-										<input class="form-control" id="clienteSearchInput" value="${insert_ordine_attr.cliente.nome} ${insert_ordine_attr.cliente.cognome}">
+										<input class="form-control" id="clienteSearchInput" value="${not empty insert_ordine_attr.cliente.nome or not empty insert_ordine_attr.cliente.cognome ? insert_ordine_attr.cliente.nome.concat(' ').concat(insert_ordine_attr.cliente.cognome) : ''}">
 										<input type="hidden" name="cliente.id" id="clienteId" value="${insert_ordine_attr.cliente.id}">
+										<input type="hidden" name="livelloPromo" id="clientePromo">
 										<form:errors path="cliente" cssClass="text-danger" />
 									</div>
-									<div class="col-12">
 
-										<button class="btn btn-outline-danger w-100 text-start d-flex justify-content-between align-items-center mt-3" type="button" data-bs-toggle="collapse" data-bs-target="#pizzeDropdown" aria-expanded="false" aria-controls="pizzeDropdown">
+									<div id="promoBanner" class="promo-banner d-none mt-3"></div>
+
+									<div class="col-12">
+										<button class="btn btn-outline-danger w-100 text-start d-flex justify-content-between align-items-center mt-2" type="button" data-bs-toggle="collapse" data-bs-target="#pizzeDropdown" aria-expanded="false" aria-controls="pizzeDropdown">
 											<span>Seleziona pizze</span>
 											<i class="bi bi-chevron-down"></i>
 										</button>
@@ -120,7 +123,8 @@
 									response($.map(data, function(item) {
 										return {
 											label: item.label,
-											value: item.value
+											value: item.value,
+											livelloPromo: item.livelloPromo,
 										}
 									}))
 								}
@@ -135,16 +139,53 @@
 
 						select: function( event, ui ) {
 							$('#clienteId').val(ui.item.value);
+							$('#clientePromo').val(ui.item.livelloPromo);
+							aggiornaPromoBanner(ui.item.livelloPromo);
 							return false;
 						},
 
 						change: function( event, ui ) {
-							if(!$("#clienteSearchInput").val()){
+							if(!$("#clienteSearchInput").val() || !ui.item ){
 								$('#clienteId').val('');
+								$('#clientePromo').val('');
+								aggiornaPromoBanner('');
 								return false;
 							}
+
+							$('#clienteId').val(ui.item.value);
+							$('#clientePromo').val(ui.item.livelloPromo);
+							aggiornaPromoBanner(ui.item.livelloPromo);
 						}
 					});
+
+					const promoBanner = $("#promoBanner");
+
+					function aggiornaPromoBanner(livelloPromo) {
+						const livelloNormalizzato = (livelloPromo || "").toLowerCase();
+
+						if (livelloNormalizzato === "silver") {
+							promoBanner
+									.removeClass("d-none alert-warning alert-dark")
+									.addClass("alert alert-secondary")
+									.text("Complimenti hai raggiunto il livello SILVER." +
+											" \n Adesso hai accesso al 10% di sconto!");
+							return;
+						}
+
+						if (livelloNormalizzato === "gold") {
+							promoBanner
+									.removeClass("d-none alert-secondary alert-warning")
+									.addClass("alert alert-warning")
+									.text("Complimenti hai raggiunto il livello GOLD." +
+											" \n Adesso hai accesso al 20% di sconto!");
+							return;
+						}
+
+						promoBanner
+								.removeClass("alert alert-secondary alert-warning alert-dark")
+								.addClass("d-none")
+								.text("");
+					}
 
 					// Ricerca e filtro pizze
 					const pizzaSearchInput = document.getElementById("pizzaSearchInput");

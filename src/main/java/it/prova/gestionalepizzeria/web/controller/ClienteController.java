@@ -5,6 +5,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import it.prova.gestionalepizzeria.dto.ClienteDTO;
 import it.prova.gestionalepizzeria.model.Cliente;
+import it.prova.gestionalepizzeria.model.ClienteProjectionInterface;
+import it.prova.gestionalepizzeria.repository.cliente.ClienteRepository;
 import it.prova.gestionalepizzeria.service.ClienteService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +26,10 @@ public class ClienteController {
 
     @Autowired
     private ClienteService clienteService;
+    @Autowired
+    private ClienteRepository clienteRepository;
 
-   @GetMapping({"", "/list"})
+    @GetMapping({"", "/list"})
     public ModelAndView list() {
         ModelAndView mv = new ModelAndView("cliente/list");
         mv.addObject("cliente_list_attribute", ClienteDTO.createListFromModelList(clienteService.listAll()));
@@ -105,7 +109,7 @@ public class ClienteController {
         return "redirect:/pizzeria/clienti";
     }
 
-    @GetMapping(value = "/searchAjax", produces = { MediaType.APPLICATION_JSON_VALUE })
+    /*@GetMapping(value = "/searchAjax", produces = { MediaType.APPLICATION_JSON_VALUE })
     public @ResponseBody String searchCliente(@RequestParam String term) {
 
         List<Cliente> listaClientiByTerm = clienteService.searchAttiviByTerm(term);
@@ -123,5 +127,22 @@ public class ClienteController {
         }
 
         return new Gson().toJson(ja);
+    }*/
+
+    @GetMapping(value = "/searchAjax",  produces = { MediaType.APPLICATION_JSON_VALUE })
+    public @ResponseBody String searchAjax(@RequestParam String term) {
+        List<ClienteProjectionInterface> listaClienti = clienteService.searchAttiviWithPromoByTerm(term);
+
+        JsonArray jsonArray = new JsonArray();
+
+        for (ClienteProjectionInterface clienteItem : listaClienti) {
+            JsonObject jo = new JsonObject();
+            jo.addProperty("value", clienteItem.getValue());
+            jo.addProperty("label", clienteItem.getLabel());
+            jo.addProperty("livelloPromo", clienteItem.getLivelloPromo());
+            jsonArray.add(jo);
+        }
+
+        return new Gson().toJson(jsonArray);
     }
 }

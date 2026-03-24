@@ -1,5 +1,7 @@
 package it.prova.gestionalepizzeria.service;
 import it.prova.gestionalepizzeria.model.Cliente;
+import it.prova.gestionalepizzeria.model.ClienteProjectionInterface;
+
 import java.util.List;
 
 public interface ClienteService {
@@ -17,6 +19,7 @@ public interface ClienteService {
 
     void disattiva(Long id);
 
-    List<Cliente> searchAttiviByTerm(String term);
+/*    List<Cliente> searchAttiviByTerm(String term);*/
 
+    List<ClienteProjectionInterface> searchAttiviWithPromoByTerm(String term);
 }

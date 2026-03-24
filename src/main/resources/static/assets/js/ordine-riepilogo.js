@@ -7,10 +7,16 @@ function inizializzaRiepilogoOrdine(config)
     const dataOrdineInput = document.getElementById(config.dataOrdineInputId);
     const clienteInput = document.getElementById(config.clienteInputId);
     const clienteIdInput = document.getElementById("clienteId");
+    const clientePromoInput = document.getElementById("clientePromo");
     const riepilogoPizze = document.getElementById("riepilogoPizze");
     const riepilogoCodice = document.getElementById("riepilogoCodice");
     const riepilogoDataOrdine = document.getElementById("riepilogoDataOrdine");
     const riepilogoCliente = document.getElementById("riepilogoCliente");
+    const riepilogoTotaleBase = document.getElementById("riepilogoTotaleBase");
+    const riepilogoScontoRow = document.getElementById("riepilogoScontoRow");
+    const riepilogoTotaleFinaleRow = document.getElementById("riepilogoTotaleFinaleRow");
+    const riepilogoScontoLabel = document.getElementById("riepilogoScontoLabel");
+    const riepilogoSconto = document.getElementById("riepilogoSconto");
     const riepilogoTotale = document.getElementById("riepilogoTotale");
 
     const riepilogoOrdineModal = new bootstrap.Modal(document.getElementById("riepilogoOrdineModal"));
@@ -27,6 +33,20 @@ function inizializzaRiepilogoOrdine(config)
             return "-";
         }
         return value.replace("T", " ");
+    }
+
+    function getPercentualeSconto() {
+        const livelloPromo = clientePromoInput ? (clientePromoInput.value || "").trim().toLowerCase() : "";
+
+        if (livelloPromo === "gold") {
+            return 20;
+        }
+
+        if (livelloPromo === "silver") {
+            return 10;
+        }
+
+        return 0;
     }
 
     function estraiPizzeSelezionate() {
@@ -87,7 +107,25 @@ function inizializzaRiepilogoOrdine(config)
             riepilogoPizze.appendChild(emptyItem);
         }
 
-        riepilogoTotale.textContent = formatEuro(totaleBase);
+        const percentualeSconto = getPercentualeSconto();
+        const importoSconto = totaleBase * percentualeSconto / 100;
+        const totaleFinale = totaleBase - importoSconto;
+
+        riepilogoTotaleBase.textContent = formatEuro(totaleBase);
+        riepilogoTotale.textContent = formatEuro(totaleFinale);
+
+        if (percentualeSconto > 0) {
+            const livelloPromo = clientePromoInput ? (clientePromoInput.value || "").toUpperCase() : "";
+            riepilogoScontoLabel.textContent = "- Sconto " + livelloPromo;
+            riepilogoSconto.textContent = "-" + formatEuro(importoSconto);
+            riepilogoScontoRow.classList.remove("d-none");
+            riepilogoTotaleFinaleRow.classList.remove("d-none");
+        } else {
+            riepilogoScontoLabel.textContent = "- Sconto";
+            riepilogoSconto.textContent = formatEuro(0);
+            riepilogoScontoRow.classList.add("d-none");
+            riepilogoTotaleFinaleRow.classList.add("d-none");
+        }
     }
 
     // Prima di aprire il modale, se manca un campo richiesto
