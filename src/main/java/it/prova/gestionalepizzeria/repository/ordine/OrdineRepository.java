@@ -40,7 +40,7 @@ public interface OrdineRepository extends JpaRepository<Ordine, Long>, JpaSpecif
         from Ordine o2
         where o2.cliente = c
           and o2.closed = true
-    ) + 1 = 10
+    ) = 9
 """)
     List<Cliente> findClientiSilverByDataOrdineBetween(LocalDateTime dataInizio, LocalDateTime dataFine);
 
@@ -54,7 +54,7 @@ public interface OrdineRepository extends JpaRepository<Ordine, Long>, JpaSpecif
         from Ordine o2
         where o2.cliente = c
           and o2.closed = true
-    ) + 1 = 20
+    ) = 19
 """)
     List<Cliente> findClientiGoldByDataOrdineBetween(LocalDateTime dataInizio, LocalDateTime dataFine);
 
